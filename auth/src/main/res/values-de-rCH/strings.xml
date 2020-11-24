@@ -91,4 +91,10 @@
     <string name="fui_verify_phone_number">Telefonnummer bestätigen</string>
     <string name="fui_sms_terms_of_service">Wenn Sie auf “%1$s” tippen, erhalten Sie möglicherweise eine SMS. Es können Gebühren für SMS und Datenübertragung anfallen.</string>
     <string name="fui_sms_terms_of_service_and_privacy_policy_extended">Indem Sie auf “%1$s” tippen, stimmen Sie unseren %2$s und unserer %3$s zu. Sie erhalten möglicherweise eine SMS und es können Gebühren für die Nachricht und die Datenübertragung anfallen.</string>
+
+    <!--    Custom Acctery Strings-->
+    <string name="fui_auth_acctery_reset">Reset Acctery</string>
+    <string name="fui_auth_acctery_contact">Kontaktiere uns</string>
+    <string name="fui_auth_acctery_migration">Migration abbrechen</string>
+    <string name="fui_auth_acctery_welcome">Zurück</string>
 </resources>

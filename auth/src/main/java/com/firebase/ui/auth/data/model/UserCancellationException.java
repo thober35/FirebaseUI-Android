@@ -10,4 +10,9 @@ public class UserCancellationException extends FirebaseUiException {
     public UserCancellationException() {
         super(ErrorCodes.UNKNOWN_ERROR);
     }
+
+    public UserCancellationException(int errorCode) {
+        super(errorCode);
+    }
+
 }

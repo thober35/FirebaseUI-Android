@@ -18,9 +18,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ import com.firebase.ui.auth.util.data.PrivacyDisclosureUtils;
 import com.firebase.ui.auth.viewmodel.ProviderSignInBase;
 import com.firebase.ui.auth.viewmodel.ResourceObserver;
 import com.firebase.ui.auth.viewmodel.idp.SocialProviderResponseHandler;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -76,6 +79,10 @@ import static com.firebase.ui.auth.AuthUI.EMAIL_LINK_PROVIDER;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class AuthMethodPickerActivity extends AppCompatBase {
 
+    private static final String AUTH_LOCATION_DEFAULT = "default";
+    private static final String AUTH_LOCATION_MIGRATION = "migration";
+    private static final String AUTH_LOCATION_WELCOME = "welcome";
+
     private SocialProviderResponseHandler mHandler;
     private List<ProviderSignInBase<?>> mProviders;
 
@@ -83,6 +90,9 @@ public class AuthMethodPickerActivity extends AppCompatBase {
     private ViewGroup mProviderHolder;
 
     private AuthMethodPickerLayout customLayout;
+
+    private String location;
+    private MaterialButton mBtnMore;
 
     public static Intent createIntent(Context context, FlowParameters flowParams) {
         return createBaseIntent(context, AuthMethodPickerActivity.class, flowParams);
@@ -94,6 +104,7 @@ public class AuthMethodPickerActivity extends AppCompatBase {
 
         FlowParameters params = getFlowParams();
         customLayout = params.authMethodPickerLayout;
+        location = params.location;
 
         mHandler = new ViewModelProvider(this).get(SocialProviderResponseHandler.class);
         mHandler.init(params);
@@ -150,6 +161,14 @@ public class AuthMethodPickerActivity extends AppCompatBase {
             }
         }
 
+        mBtnMore = findViewById(R.id.btn_auth_more);
+        mBtnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMenuAction();
+            }
+        });
+
         //Handler for both
         mHandler.getOperation().observe(this, new ResourceObserver<IdpResponse>(
                 this, R.string.fui_progress_dialog_signing_in) {
@@ -179,6 +198,48 @@ public class AuthMethodPickerActivity extends AppCompatBase {
                 }
             }
         });
+    }
+
+    private void popupMenuAction() {
+        PopupMenu popupMenu = new PopupMenu(this, mBtnMore);
+        if (AUTH_LOCATION_DEFAULT.equals(location)) {
+            popupMenu.getMenuInflater().inflate(R.menu.fui_auth_popup_menu_default, popupMenu.getMenu());
+        } else if (AUTH_LOCATION_WELCOME.equals(location)) {
+            popupMenu.getMenuInflater().inflate(R.menu.fui_auth_popup_menu_welcome, popupMenu.getMenu());
+        } else if (AUTH_LOCATION_MIGRATION.equals(location)) {
+            popupMenu.getMenuInflater().inflate(R.menu.fui_auth_popup_menu_migration, popupMenu.getMenu());
+        } else {
+            throw new IllegalStateException("Wrong location: " + location);
+        }
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return AuthMethodPickerActivity.this.popupMenuItemAction(item.getItemId());
+            }
+        });
+        popupMenu.show();
+    }
+
+    private boolean popupMenuItemAction(int itemId) {
+        if (itemId == R.id.fui_auth_popup_default_reset) {
+            finishAuth(ErrorCodes.AUTH_CUSTOM_ACTION_DEFAULT_RESET);
+        } else if (itemId == R.id.fui_auth_popup_migration_abort) {
+            finishAuth(ErrorCodes.AUTH_CUSTOM_ACTION_MIGRATION_ABORT);
+        } else if (itemId == R.id.fui_auth_popup_welcome_back) {
+            finishAuth(ErrorCodes.AUTH_CUSTOM_ACTION_WELCOME_BACK);
+        } else if (itemId == R.id.fui_auth_popup_default_contact ||
+                itemId == R.id.fui_auth_popup_migration_contact ||
+                itemId == R.id.fui_auth_popup_welcome_contact) {
+            finishAuth(ErrorCodes.AUTH_CUSTOM_ACTION_CONTACT);
+        }
+        return true;
+    }
+
+    private void finishAuth(int customErrorCode) {
+        Intent intent = getIntent();
+        intent.putExtra(ExtraConstants.EXTRA_AUTH_CUSTOM_ACTION, customErrorCode);
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
 
     private void populateIdpList(List<IdpConfig> providerConfigs) {

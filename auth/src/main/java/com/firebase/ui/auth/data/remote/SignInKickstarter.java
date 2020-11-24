@@ -216,7 +216,11 @@ public class SignInKickstarter extends SignInViewModelBase {
                 }
                 IdpResponse response = IdpResponse.fromResultIntent(data);
                 if (response == null) {
-                    setResult(Resource.<IdpResponse>forFailure(new UserCancellationException()));
+                    if (data!= null && data.getIntExtra(ExtraConstants.EXTRA_AUTH_CUSTOM_ACTION, 0) > 1000) {
+                        setResult(Resource.<IdpResponse>forFailure(new UserCancellationException(data.getIntExtra(ExtraConstants.EXTRA_AUTH_CUSTOM_ACTION, 0))));
+                    } else {
+                        setResult(Resource.<IdpResponse>forFailure(new UserCancellationException()));
+                    }
                 } else if (response.isSuccessful()) {
                     setResult(Resource.forSuccess(response));
                 } else if (response.getError().getErrorCode() ==
