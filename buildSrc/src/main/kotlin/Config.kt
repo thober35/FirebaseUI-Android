@@ -1,5 +1,5 @@
 object Config {
-    const val version = "7.1.0"
+    const val version = "7.1.0-acctery"
     val submodules = listOf("auth", "common", "firestore", "database", "storage")
 
     private const val kotlinVersion = "1.3.72"
@@ -17,6 +17,7 @@ object Config {
 
         const val bintray = "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5"
         const val buildInfo = "org.jfrog.buildinfo:build-info-extractor-gradle:4.15.2"
+        const val jitpack =  "com.github.dcendents:android-maven-gradle-plugin:2.1"
     }
 
     object Libs {

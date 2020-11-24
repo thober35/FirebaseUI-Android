@@ -21,4 +21,8 @@
         <item name="android:inputType">textPassword</item>
     </style>
 
+    <style name="style_button_transparent" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="tint">@color/fui_colorAccentLight</item>
+    </style>
+
 </resources>

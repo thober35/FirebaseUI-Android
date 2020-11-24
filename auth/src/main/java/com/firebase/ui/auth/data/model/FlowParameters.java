@@ -58,6 +58,7 @@ public class FlowParameters implements Parcelable {
             boolean alwaysShowProviderChoice = in.readInt() != 0;
             boolean lockOrientation = in.readInt() != 0;
             String emailLink = in.readString();
+            String location = in.readString();
             ActionCodeSettings passwordResetSettings = in.readParcelable(ActionCodeSettings.class.getClassLoader());
             AuthMethodPickerLayout customLayout = in.readParcelable(AuthMethodPickerLayout.class.getClassLoader());
 
@@ -76,6 +77,7 @@ public class FlowParameters implements Parcelable {
                     lockOrientation,
                     emailLink,
                     passwordResetSettings,
+                    location,
                     customLayout);
         }
 
@@ -110,6 +112,9 @@ public class FlowParameters implements Parcelable {
     public String emailLink;
 
     @Nullable
+    public String location;
+
+    @Nullable
     public final ActionCodeSettings passwordResetSettings;
 
     public final boolean enableCredentials;
@@ -136,6 +141,7 @@ public class FlowParameters implements Parcelable {
             boolean lockOrientation,
             @Nullable String emailLink,
             @Nullable ActionCodeSettings passwordResetSettings,
+            @Nullable String location,
             @Nullable AuthMethodPickerLayout authMethodPickerLayout) {
         this.appName = Preconditions.checkNotNull(appName, "appName cannot be null");
         this.providers = Collections.unmodifiableList(
@@ -153,6 +159,7 @@ public class FlowParameters implements Parcelable {
         this.emailLink = emailLink;
         this.passwordResetSettings = passwordResetSettings;
         this.authMethodPickerLayout = authMethodPickerLayout;
+        this.location = location;
     }
 
     /**
@@ -177,6 +184,7 @@ public class FlowParameters implements Parcelable {
         dest.writeInt(alwaysShowProviderChoice ? 1 : 0);
         dest.writeInt(lockOrientation ? 1 : 0);
         dest.writeString(emailLink);
+        dest.writeString(location);
         dest.writeParcelable(passwordResetSettings, flags);
         dest.writeParcelable(authMethodPickerLayout, flags);
     }

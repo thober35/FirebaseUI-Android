@@ -9,6 +9,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookRequestError;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.WebDialog;
@@ -65,6 +66,8 @@ public class FacebookSignInHandler extends SingleProviderSignInHandler<AuthUI.Id
 
     @Override
     protected void onCreate() {
+        FacebookSdk.setAutoInitEnabled(true);
+        FacebookSdk.fullyInitialize();
         List<String> permissions = getArguments().getParams()
                 .getStringArrayList(ExtraConstants.FACEBOOK_PERMISSIONS);
         permissions = new ArrayList<>(
@@ -96,6 +99,7 @@ public class FacebookSignInHandler extends SingleProviderSignInHandler<AuthUI.Id
     protected void onCleared() {
         super.onCleared();
         LoginManager.getInstance().unregisterCallback(mCallbackManager);
+        FacebookSdk.setAutoInitEnabled(false);
     }
 
     private class Callback implements FacebookCallback<LoginResult> {

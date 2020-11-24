@@ -1,4 +1,9 @@
 import com.android.build.gradle.internal.dsl.TestOptions
+plugins {
+    id("com.github.dcendents.android-maven")
+}
+
+group="com.github.thober35"
 
 android {
     buildTypes {
