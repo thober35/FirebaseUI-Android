@@ -76,6 +76,14 @@ public final class ErrorCodes {
      */
     public static final int ERROR_GENERIC_IDP_RECOVERABLE_ERROR = 13;
 
+    /**
+     * These "errorCodes" are used for custom actions
+     */
+    public static final int AUTH_CUSTOM_ACTION_DEFAULT_RESET = 1061;
+    public static final int AUTH_CUSTOM_ACTION_MIGRATION_ABORT = 1062;
+    public static final int AUTH_CUSTOM_ACTION_WELCOME_BACK = 1063;
+    public static final int AUTH_CUSTOM_ACTION_CONTACT = 1064;
+
     private ErrorCodes() {
         throw new AssertionError("No instance for you!");
     }
@@ -114,6 +122,14 @@ public final class ErrorCodes {
                 return "The user account has been disabled by an administrator.";
             case ERROR_GENERIC_IDP_RECOVERABLE_ERROR:
                 return "Generic IDP recoverable error.";
+            case AUTH_CUSTOM_ACTION_CONTACT:
+                return "CustomAction: Contact";
+            case AUTH_CUSTOM_ACTION_DEFAULT_RESET:
+                return "CustomAction: Default Reset";
+            case AUTH_CUSTOM_ACTION_MIGRATION_ABORT:
+                return "CustomAction: Migration Abort";
+            case AUTH_CUSTOM_ACTION_WELCOME_BACK:
+                return "CustomAction: Welcome Back";
             default:
                 throw new IllegalArgumentException("Unknown code: " + code);
         }
@@ -136,7 +152,11 @@ public final class ErrorCodes {
             EMAIL_LINK_CROSS_DEVICE_LINKING_ERROR,
             EMAIL_LINK_DIFFERENT_ANONYMOUS_USER_ERROR,
             ERROR_USER_DISABLED,
-            ERROR_GENERIC_IDP_RECOVERABLE_ERROR
+            ERROR_GENERIC_IDP_RECOVERABLE_ERROR,
+            AUTH_CUSTOM_ACTION_CONTACT,
+            AUTH_CUSTOM_ACTION_DEFAULT_RESET,
+            AUTH_CUSTOM_ACTION_MIGRATION_ABORT,
+            AUTH_CUSTOM_ACTION_WELCOME_BACK
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface Code {

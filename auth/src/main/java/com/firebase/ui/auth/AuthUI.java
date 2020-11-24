@@ -48,6 +48,7 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.BuildConfig;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthCredential;
@@ -1301,6 +1302,7 @@ public final class AuthUI {
         boolean mEnableHints = true;
         AuthMethodPickerLayout mAuthMethodPickerLayout = null;
         ActionCodeSettings mPasswordSettings = null;
+        String mLocation = null;
 
         /**
          * Specifies the theme to use for the application flow. If no theme is specified, a
@@ -1358,6 +1360,17 @@ public final class AuthUI {
             Preconditions.checkNotNull(privacyPolicyUrl, "privacyPolicyUrl cannot be null");
             mTosUrl = tosUrl;
             mPrivacyPolicyUrl = privacyPolicyUrl;
+            return (T) this;
+        }
+
+        /**
+         * Set Location. This is specific to Acctery app.
+         * @param location possible: "WELCOME", "DEFAULT", "MIGRATION"
+         */
+        @NonNull
+        public T setLocation(String location) {
+            Preconditions.checkNotNull(location, "location cannot be null");
+            mLocation = location;
             return (T) this;
         }
 
@@ -1587,6 +1600,7 @@ public final class AuthUI {
                     mLockOrientation,
                     mEmailLink,
                     mPasswordSettings,
+                    mLocation,
                     mAuthMethodPickerLayout);
         }
     }

@@ -1,5 +1,5 @@
 object Config {
-    const val version = "7.1.1"
+    const val version = "7.1.0-acctery"
     val submodules = listOf("auth", "common", "firestore", "database", "storage")
 
     private const val kotlinVersion = "1.3.72"

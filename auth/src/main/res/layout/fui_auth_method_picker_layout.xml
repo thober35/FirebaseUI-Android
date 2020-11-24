@@ -15,6 +15,21 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_auth_more"
+        style="@style/style_button_transparent"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:icon="@drawable/fui_more_black_24dp"
+        app:iconGravity="textEnd"
+        app:iconPadding="0dp"
+        app:iconTint="@color/fui_colorAccentLight" />
+
     <!-- TODO remove lint ignore once the bug is fixed:
          https://issuetracker.google.com/issues/38281866-->
     <ImageView

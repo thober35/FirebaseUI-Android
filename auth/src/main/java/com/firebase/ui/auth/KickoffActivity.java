@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,7 +44,12 @@ public class KickoffActivity extends InvisibleActivityBase {
             @Override
             protected void onFailure(@NonNull Exception e) {
                 if (e instanceof UserCancellationException) {
-                    finish(RESULT_CANCELED, null);
+                    int customErrorCode = ((UserCancellationException) e).getErrorCode();
+                    if (customErrorCode > 1000) {
+                        finish(customErrorCode, null);
+                    } else {
+                        finish(RESULT_CANCELED, null);
+                    }
                 } else if (e instanceof FirebaseAuthAnonymousUpgradeException) {
                     IdpResponse res = ((FirebaseAuthAnonymousUpgradeException) e).getResponse();
                     finish(RESULT_CANCELED, new Intent().putExtra(ExtraConstants.IDP_RESPONSE,

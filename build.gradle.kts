@@ -226,7 +226,8 @@ fun Project.setupPublishing() {
 
         // We need to override the variables 'group' and 'version' on the 'Project' object in order
         // to prevent the bintray plugin from creating 'unspecified' artifacts.
-        val groupName = "com.firebaseui"
+        // val groupName = "com.firebaseui"
+        val groupName = "com.tbsentertainment"
         group = groupName
         version = Config.version
 

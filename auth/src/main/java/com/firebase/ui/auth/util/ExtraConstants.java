@@ -54,6 +54,8 @@ public final class ExtraConstants {
     public static final String GENERIC_OAUTH_SCOPES = "generic_oauth_scopes";
     public static final String GENERIC_OAUTH_CUSTOM_PARAMETERS = "generic_oauth_custom_parameters";
 
+    public static final String EXTRA_AUTH_CUSTOM_ACTION = "auth_custom_action";
+
     private ExtraConstants() {
         throw new AssertionError("No instance for you!");
     }
