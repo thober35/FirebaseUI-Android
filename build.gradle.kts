@@ -22,7 +22,7 @@ buildscript {
         classpath(Config.Plugins.google)
         classpath(Config.Plugins.bintray)
         classpath(Config.Plugins.buildInfo)
-        classpath(Config.Plugins.jitpack)
+//        classpath(Config.Plugins.jitpack)
     }
 }
 
