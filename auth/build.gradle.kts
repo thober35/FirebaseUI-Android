@@ -1,19 +1,4 @@
 import com.android.build.gradle.internal.dsl.TestOptions
-plugins {
-//    id("com.github.dcendents.android-maven")
-    `maven-publish`
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.thober35"
-            artifactId = "firebase-ui-auth"
-            version = Config.version
-        }
-    }
-}
-
 
 android {
     buildTypes {
