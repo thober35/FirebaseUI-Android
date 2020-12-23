@@ -17,7 +17,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_auth_more"
-        style="@style/style_button_transparent"
+        style="@style/FirebaseUI.MoreButtonAcctery"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
